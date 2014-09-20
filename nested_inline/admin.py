@@ -81,7 +81,8 @@ class NestedModelAdmin(admin.ModelAdmin):
                     nested_formset = InlineFormSet(instance=form.instance,
                         prefix=prefix, queryset=nested_inline.queryset(request))
                 nested_formsets.append(nested_formset)
-                if nested_inline.inlines:
+
+                if isinstance(nested_inline, NestedInline) and nested_inline.inlines:
                     self.add_nested_inline_formsets(request, nested_inline, nested_formset, depth=depth+1)
             form.nested_formsets = nested_formsets
 
@@ -107,7 +108,8 @@ class NestedModelAdmin(admin.ModelAdmin):
                     fieldsets, prepopulated, readonly, model_admin=self)
                 wrapped_nested_formsets.append(wrapped_nested_formset)
                 media = get_media(wrapped_nested_formset.media)
-                if nested_inline.inlines:
+
+                if isinstance(self, NestedInline) and nested_inline.inlines:
                     media = get_media(self.wrap_nested_inline_formsets(request, nested_inline, nested_formset))
             form.nested_formsets = wrapped_nested_formsets
         return media
@@ -175,7 +177,7 @@ class NestedModelAdmin(admin.ModelAdmin):
                     save_as_new="_saveasnew" in request.POST,
                     prefix=prefix, queryset=inline.queryset(request))
                 formsets.append(formset)
-                if inline.inlines:
+                if isinstance(inline, NestedInline) and inline.inlines:
                     self.add_nested_inline_formsets(request, inline, formset)
             if self.all_valid_with_nesting(formsets) and form_validated:
                 self.save_model(request, new_object, form, False)
