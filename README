@@ -1,9 +1,9 @@
 django-nested-inline
 ====================
 
-*FORKED https://github.com/s-block/django-nested-inline](https://github.com/s-block/django-nested-inlin*e
-
 Nested inline support for Django admin
+
+FORKED https://github.com/s-block/django-nested-inline](https://github.com/s-block/django-nested-inline
 
 Most of the code from this package is from [https://code.djangoproject.com/ticket/9025](https://code.djangoproject.com/ticket/9025)
 
